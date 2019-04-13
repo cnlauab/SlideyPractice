@@ -20,10 +20,15 @@ public class PlaySpace : MonoBehaviour {
 
     void GameLoop(){
         bool nextTurn = false;
-        SpawnLine();
+        while (!nextTurn)
+        {
+            checkFall();
+            nextTurn = checkScore();
+            SpawnLine();
+        }
         PlayerTurn();
-        checkFall();
-        checkScore();
+       
+
     }
 
     void PlayerTurn(){ 
@@ -41,6 +46,7 @@ public class PlaySpace : MonoBehaviour {
     }
 
     bool checkScore(){
+    bool result = true;
         for(eachLine){
         int count = 0;
             for(each box){
@@ -49,8 +55,10 @@ public class PlaySpace : MonoBehaviour {
             if(count == width){
                 score++;
                 combo++;
+            result = false;
             }
         }
+    return result;
     }
 
     void SpawnLine(){
